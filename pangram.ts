@@ -6,22 +6,32 @@ class Pangram {
   }
 
   static chars = (): number[] => {
-    // ASCII chars A-Z: 65-90
     //ASCII chars a-z: 97-122
     let arr: number[] = [];
-    let count = 65;
+    let count = 97;
 
     while (count < 123) {
-      if (count <= 90 || count >= 97) arr = [...arr, count];
+      arr = [...arr, count];
       count++;
     }
     return arr;
   };
 
   isPangram = (): boolean => {
-    const chars = Pangram.chars();
+    const chars = new Set(Pangram.chars());
+    this.sentence
+      .replace(/\s/g, "")
+      .toLowerCase()
+      .split("")
+      .forEach(letter => {
+        const code = letter.charCodeAt(0);
+        if (chars.has(code)) {
+          chars.delete(code);
+        }
+      });
 
-    return true;
+    if (!chars.size) return true;
+    return false;
   };
 }
 
