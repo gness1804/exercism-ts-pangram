@@ -30,8 +30,7 @@ class Pangram {
         }
       });
 
-    if (!chars.size) return true;
-    return false;
+    return !chars.size;
   };
 }
 
